@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>내 옷장</title>
+  <link rel="stylesheet" href="css/style.css?v=20261020" />
+  <link rel="stylesheet" href="css/wardrobe-3d.css?v=20261020d" />
+</head>
+<body>
+  <div class="app">
+    <header><div class="topbar"><h1 id="pageTitle">입력</h1><button id="refreshBtn" class="icon-btn" type="button">⟳</button></div></header>
+    <main>
+      <section id="input" class="screen active">
+        <div id="inputHome" class="card input-home-card">
+          <button id="newClothBtn" class="home-action-btn primary" type="button">새옷 추가</button>
+          <button id="manageClothBtn" class="home-action-btn" type="button">옷 관리</button>
+          <button id="exportBackup" class="btn ghost" type="button">데이터 백업 저장</button>
+          <label class="btn ghost" style="text-align:center;cursor:pointer">백업 불러오기<input id="importBackup" type="file" accept=".json,application/json" hidden></label>
+        </div>
+
+        <div id="inputForm" class="card form-card input-layout-v3 hidden">
+          <div class="input-top-row compact-top-row">
+            <div class="date-card"><input id="dateInput" type="date" aria-label="등록일" /></div>
+            <div class="id-card"><div id="clothIdDisplay" class="id-display" aria-label="옷_ID">새옷-ID없음</div></div>
+          </div>
+
+          <div class="photo-box main-photo-box" id="photoBox"><img id="photoPreview" alt="옷 사진 미리보기" /><span id="photoPlaceholder" class="hanger-placeholder"><svg class="hanger-icon" viewBox="0 0 100 100" aria-hidden="true"><path d="M50 10a8 8 0 0 0-8 8c0 2.4 1.3 4.5 3.2 5.8L50 27l4.8-3.2A6.9 6.9 0 0 0 58 18a4 4 0 0 0-4-4c-1.4 0-2.6.7-3.3 1.8" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/><path d="M50 27 12 52c-5 3.3-7.6 6.7-7.6 10.8 0 6.2 5.7 11.2 12.6 11.2h66c6.9 0 12.6-5 12.6-11.2 0-4.1-2.6-7.5-7.6-10.8z" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div>
+          <div class="photo-tools-row">
+            <button id="pickPhotoBtn" class="btn ghost photo-add-btn" type="button">사진추가</button>
+            <div id="thumbStrip" class="thumb-strip"></div>
+          </div>
+
+          <input id="photoInput" type="file" accept="image/*" multiple hidden />
+          <input id="clothId" type="hidden" />
+
+          <div class="category-panel">
+            <label>분류</label>
+            <div class="category-grid">
+              <div id="majorCategory" class="select-like"></div>
+              <div id="middleCategory" class="select-like"></div>
+              <div id="season" class="select-like"></div>
+              <div id="mainColor" class="select-like"></div>
+              <div id="subColor1" class="select-like"></div>
+              <div id="subColor2" class="select-like"></div>
+            </div>
+          </div>
+
+          <div class="detail-panel">
+            <label>이름 / 특징</label><input id="nameInput" placeholder="예: 흰색 블라우스, 데님 와이드팬츠" />
+            <label>메모</label><textarea id="memoInput" placeholder="브랜드, 소재, 위치 등"></textarea>
+          </div>
+          <div class="action-row input-actions">
+            <button id="closeInputBtn" class="btn ghost" type="button">닫기</button>
+            <button id="saveBtn" class="btn primary" type="button">저장</button>
+            <button id="updateBtn" class="btn primary hidden" type="button">수정</button>
+            <button id="removeBtn" class="btn danger hidden" type="button">제거</button>
+          </div>
+        </div>
+      </section>
+
+      <section id="search" class="screen">
+        <div class="search-sticky">
+          <div class="search-row"><input id="searchInput" placeholder="옷 이름 / 색 / 분류 검색" /><button id="filterBtn" class="filter-btn" type="button">필터</button></div>
+          <div id="activeFilters" class="filter-chips"></div>
+        </div>
+        <div id="resultList" class="result-list"></div>
+      </section>
+
+      <section id="closet" class="screen closet-screen">
+        <div class="closet-card">
+          <div id="wardrobeShell" class="wardrobe-shell">
+            <div id="wardrobe" class="wardrobe-stage" aria-label="3D 옷장"></div>
+            <p id="wardrobeHint" class="wardrobe-hint">열어보고 싶은 칸을 선택하세요</p>
+          </div>
+          <div id="closetModeToggle" class="closet-toggle">
+            <button class="toggle-btn active" data-mode="major" type="button">분류별</button>
+            <button class="toggle-btn" data-mode="season" type="button">계절별</button>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <nav class="bottom-nav">
+    <button class="tab active" data-action="home" type="button"><svg class="tab-icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9.5L10 3l7 6.5"/><path d="M5 8.5V17h4v-4h2v4h4V8.5"/></svg>홈</button>
+    <button class="tab" data-action="new" type="button"><svg class="tab-icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="10" cy="10" r="8"/><line x1="10" y1="6.5" x2="10" y2="13.5"/><line x1="6.5" y1="10" x2="13.5" y2="10"/></svg>새옷</button>
+    <button class="tab" data-target="search" type="button"><svg class="tab-icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="8.5" cy="8.5" r="5.5"/><line x1="13" y1="13" x2="17.5" y2="17.5"/></svg>검색</button>
+    <button class="tab" data-target="closet" type="button"><svg class="tab-icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="16" height="14" rx="1"/><line x1="10" y1="3" x2="10" y2="17"/><line x1="8" y1="10" x2="9" y2="10"/><line x1="11" y1="10" x2="12" y2="10"/></svg>옷장</button>
+    <button class="tab" data-action="back" type="button"><svg class="tab-icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="12 4 5 10 12 16"/><line x1="5" y1="10" x2="17" y2="10"/></svg>뒤로가기</button>
+  </nav>
+
+  <div id="pickerModal" class="modal"><div class="sheet"><div class="sheet-title" id="pickerTitle">선택</div><div id="pickerOptions" class="picker-options"></div><div class="action-row"><button class="btn ghost" data-close-picker type="button">닫기</button></div></div></div>
+  <div id="outfitPickerModal" class="modal"><div class="sheet">
+    <div class="picker-header">
+      <div class="picker-title-row">
+        <div class="sheet-title-left" id="outfitPickerTitle">선택</div>
+        <button id="filterClearAllBtn" class="filter-clear-btn hidden" type="button">해제</button>
+      </div>
+      <div id="outfitPickerFilters" class="picker-filter-checks"></div>
+    </div>
+    <div id="wardrobeEmpty" class="wardrobe-empty hidden" role="status">선택한 조건에 맞는 옷이 없어요</div>
+    <div id="outfitPickerOptions" class="outfit-picker-options hidden"></div>
+    <div class="wardrobe-view-controls"><button data-close-outfit-picker type="button">옷장으로</button><div class="wardrobe-move-controls"><button id="wardrobePrev" type="button" aria-label="봉의 이전 옷으로 이동">‹</button><button id="wardrobeNext" type="button" aria-label="봉의 다음 옷으로 이동">›</button></div><button id="wardrobeListToggle" type="button" aria-pressed="false">목록 보기</button></div>
+  </div></div>
+  <div id="filterModal" class="modal"><div class="sheet"><div class="sheet-title">필터</div><label>대분류</label><div id="filterMajor" class="select-like"></div><label>계절</label><div id="filterSeason" class="select-like"></div><label>메인색</label><div id="filterColor" class="select-like"></div><div class="action-row"><button id="applyFilterBtn" class="btn primary" type="button">적용</button><button id="resetFilterBtn" class="btn ghost" type="button">초기화</button><button class="btn ghost" data-close-modal type="button">닫기</button></div></div></div>
+  <div id="confirmModal" class="modal"><div class="sheet"><div class="sheet-title" id="confirmTitle">확인</div><p id="confirmMessage" class="success-message"></p><div class="action-row"><button id="confirmCancelBtn" class="btn ghost" type="button">취소</button><button id="confirmOkBtn" class="btn primary" type="button">확인</button></div></div></div>
+  <div id="viewModal" class="modal"><div class="sheet view-sheet">
+    <div class="view-body">
+      <div class="view-header">
+        <div class="view-title-block"><strong id="viewName" class="view-name"></strong><span id="viewClothId" class="view-cloth-id"></span></div>
+        <button id="viewCloseTopBtn" class="view-close-circle" type="button">✕</button>
+      </div>
+      <div class="view-photo-box" id="viewPhotoBox">
+        <div id="viewSlideTrack" class="view-slide-track"></div>
+        <span id="viewNoPhoto" class="hanger-placeholder"><svg class="hanger-icon" viewBox="0 0 100 100" aria-hidden="true"><path d="M50 10a8 8 0 0 0-8 8c0 2.4 1.3 4.5 3.2 5.8L50 27l4.8-3.2A6.9 6.9 0 0 0 58 18a4 4 0 0 0-4-4c-1.4 0-2.6.7-3.3 1.8" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/><path d="M50 27 12 52c-5 3.3-7.6 6.7-7.6 10.8 0 6.2 5.7 11.2 12.6 11.2h66c6.9 0 12.6-5 12.6-11.2 0-4.1-2.6-7.5-7.6-10.8z" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        <div id="viewThumbStrip" class="view-thumb-strip"></div>
+      </div>
+      <div id="viewInfo" class="view-info"></div>
+    </div>
+    <div class="view-action-btns"><button id="viewDismissBtn" class="btn ghost" type="button">닫기</button><button id="viewEditBtn" class="btn primary" type="button">수정</button></div>
+  </div></div>
+  <div id="successModal" class="modal"><div class="sheet"><div class="sheet-title" id="successTitle">완료</div><p id="successMessage" class="success-message"></p><div class="action-row"><button id="successCloseBtn" class="btn primary" type="button">확인</button><button id="successUndoBtn" class="btn ghost" type="button">되돌리기</button></div></div></div>
+  <div id="photoFullscreen" class="photo-fullscreen" style="display:none"><img id="photoFullscreenImg" alt="" /></div>
+  <div id="toast" class="toast"></div>
+  <script src="js/sample-photos.js"></script>
+  <script src="js/local-store.js?v=20261020d"></script>
+  <script src="js/vendor/three.min.js"></script>
+  <script src="js/vendor/gsap.min.js"></script>
+  <script src="js/wardrobe-3d.js?v=20261020d"></script>
+  <script src="js/app.js?v=20261020d"></script>
+</body>
+</html>

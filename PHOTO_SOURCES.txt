@@ -1,0 +1,19 @@
+﻿시연용 사진: Unsplash. 아래 7장 이미지를 50개 더미 항목에 반복 사용합니다.
+앱은 로컬에 포함된 사진 데이터만 사용하며 외부 요청을 하지 않습니다.
+
+상의
+https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=600&h=700&q=75&fm=jpg
+하의
+https://images.unsplash.com/photo-1542272604-787c3835535d?auto=format&fit=crop&w=600&h=700&q=75&fm=jpg
+아우터
+https://images.unsplash.com/photo-1543076447-215ad9ba6923?auto=format&fit=crop&w=600&h=700&q=75&fm=jpg
+운동복
+https://images.unsplash.com/photo-1556821840-3a63f95609a7?auto=format&fit=crop&w=600&h=700&q=75&fm=jpg
+가방
+https://images.unsplash.com/photo-1548036328-c9fa89d128fa?auto=format&fit=crop&w=600&h=700&q=75&fm=jpg
+주얼리
+https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?auto=format&fit=crop&w=600&h=700&q=75&fm=jpg
+신발
+https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=600&h=700&q=75&fm=jpg
+
+License: https://unsplash.com/license

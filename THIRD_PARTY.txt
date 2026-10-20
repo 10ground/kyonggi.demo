@@ -1,0 +1,15 @@
+Three.js r128
+Copyright 2010-2021 Three.js Authors
+MIT license (SPDX-License-Identifier: MIT)
+Source: https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js
+
+GSAP 3.12.2
+Copyright 2023, GreenSock. All rights reserved.
+License notice retained in js/vendor/gsap.min.js.
+Terms referenced by the distributed library: https://greensock.com/standard-license
+Source: https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js
+
+Both files are bundled for offline use, matching the versions in the user-supplied
+3d_cover_flow_wardrobe.html. Its cover-flow position/rotation/selection concept was
+adapted to the app's local clothing data and filters.
+Photo credits: PHOTO_SOURCES.txt
